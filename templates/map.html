@@ -1,0 +1,530 @@
+{% extends "base.html" %}
+
+{% block title %}Mapa - Verdinha${% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: 28px;
+        font-weight: bold;
+        color: #2ecc71;
+        margin-bottom: 5px;
+    }
+
+    .stat-label {
+        font-size: 12px;
+        color: #666;
+    }
+
+    .map-container {
+        height: 250px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+
+    .photo-upload-section {
+        background: linear-gradient(135deg, #fff5e6 0%, #ffe6cc 100%);
+        border: 2px dashed #f39c12;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        display: none;
+    }
+
+    .photo-upload-section.active {
+        display: block;
+    }
+
+    .upload-title {
+        color: #f39c12;
+        font-weight: 600;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .upload-subtitle {
+        color: #666;
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+
+    .upload-area {
+        background: white;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .upload-area:hover {
+        background: #f8f8f8;
+        transform: scale(1.02);
+    }
+
+    .upload-icon {
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    .upload-text {
+        color: #666;
+        font-size: 14px;
+    }
+
+    #photoInput {
+        display: none;
+    }
+
+    .preview-container {
+        display: none;
+        margin-bottom: 15px;
+    }
+
+    .preview-container.active {
+        display: block;
+    }
+
+    .preview-image {
+        max-width: 100%;
+        max-height: 200px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .btn-confirm {
+        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+        transition: transform 0.2s;
+    }
+
+    .btn-confirm:hover {
+        transform: scale(1.05);
+    }
+
+    .btn-confirm:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .challenge-card {
+        background: white;
+        padding: 15px;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        border-left: 4px solid #2ecc71;
+    }
+
+    .challenge-title {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .challenge-reward {
+        color: #2ecc71;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .modal.active {
+        display: flex;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+        width: 80%;
+        max-width: 300px;
+        text-align: center;
+    }
+
+    .modal-content h2 {
+        color: #2ecc71;
+        margin-bottom: 15px;
+    }
+
+    .modal-content p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .header-logo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .header-logo img {
+        width: 60px;
+        height: auto;
+        filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+    }
+
+    .header-text {
+        text-align: center;
+    }
+
+    .header-text h1 {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+
+    .header-text p {
+        font-size: 12px;
+        opacity: 0.9;
+    }
+
+    .custom-icon {
+        background: #2ecc71;
+        border-radius: 50%;
+        width: 40px !important;
+        height: 40px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid white;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        font-size: 24px;
+    }
+
+    .leaflet-popup-content-wrapper {
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .leaflet-popup-content {
+        margin: 15px;
+        text-align: center;
+    }
+
+    .popup-title {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .popup-btn {
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: transform 0.2s;
+    }
+
+    .popup-btn:hover {
+        transform: scale(1.05);
+    }
+
+    .pending-indicator {
+        background: #fff3cd;
+        border: 2px solid #ffc107;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 15px;
+        font-size: 13px;
+        color: #856404;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="header">
+    <div class="header-logo">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        <div class="header-text">
+            <h1>Verdinha$</h1>
+            <p>Mapa de Coleta - Distrito Federal</p>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" id="userPoints">{{ user_points }}</div>
+            <div class="stat-label">Pontos</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="userLevel">{{ user_level }}</div>
+            <div class="stat-label">Nível</div>
+        </div>
+    </div>
+
+    {% if pending %}
+    <div class="pending-indicator">
+        ⚠️ Você tem uma coleta pendente em <strong>{{ pending[2] }}</strong>. Envie a foto abaixo!
+    </div>
+    {% endif %}
+    
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+
+    <!-- Área de Upload de Foto -->
+    <div class="photo-upload-section {% if pending %}active{% endif %}" id="photoUploadSection">
+        <div class="upload-title">📸 Confirme sua Coleta</div>
+        <div class="upload-subtitle">Tire uma foto do descarte correto do lixo</div>
+        
+        <div class="upload-area" onclick="document.getElementById('photoInput').click()">
+            <div class="upload-icon">📷</div>
+            <div class="upload-text">Clique para tirar/escolher foto</div>
+        </div>
+        
+        <input type="file" id="photoInput" accept="image/*" capture="environment" onchange="handlePhotoSelect(event)">
+        
+        <div class="preview-container" id="previewContainer">
+            <img id="previewImage" class="preview-image" alt="Preview">
+        </div>
+        
+        <button class="btn-confirm" id="confirmBtn" onclick="confirmCollection()" disabled>
+            Confirmar Coleta +10 pontos
+        </button>
+    </div>
+    
+    <h3 style="margin-bottom: 15px; color: #333;">Desafios Ativos</h3>
+    {% for challenge in challenges %}
+    <div class="challenge-card">
+        <div class="challenge-title">{{ challenge[0] }}</div>
+        <div class="challenge-reward">+{{ challenge[1] }} pontos</div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="nav-bar">
+    <a href="{{ url_for('map_view') }}" class="nav-item active">
+        <div class="nav-icon">🗺️</div>
+        <div class="nav-label">Mapa</div>
+    </a>
+    <a href="{{ url_for('ranking') }}" class="nav-item">
+        <div class="nav-icon">🏆</div>
+        <div class="nav-label">Ranking</div>
+    </a>
+    <a href="{{ url_for('rewards') }}" class="nav-item">
+        <div class="nav-icon">🎁</div>
+        <div class="nav-label">Prêmios</div>
+    </a>
+</div>
+
+<div class="modal" id="collectModal">
+    <div class="modal-content">
+        <h2 id="modalTitle">🎉 Parabéns!</h2>
+        <p id="modalMessage">Coleta iniciada! Agora envie a foto.</p>
+        <button class="btn btn-primary" onclick="closeModal()">Continuar</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    let selectedPhoto = null;
+    let currentPendingId = {% if pending %}{{ pending[1] }}{% else %}null{% endif %};
+
+    // Inicializar o mapa centrado em Brasília
+    const map = L.map('map').setView([-15.7939, -47.8828], 12);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19
+    }).addTo(map);
+
+    const collectionPoints = [
+        { id: 1, lat: -15.7942, lng: -47.8822, name: 'Esplanada dos Ministérios' },
+        { id: 2, lat: -15.7801, lng: -47.9292, name: 'Parque da Cidade' },
+        { id: 3, lat: -15.8331, lng: -47.9194, name: 'Taguatinga Centro' },
+        { id: 4, lat: -15.8897, lng: -48.0443, name: 'Ceilândia Norte' },
+        { id: 5, lat: -15.7217, lng: -47.8775, name: 'Lago Norte' },
+        { id: 6, lat: -15.8439, lng: -47.9197, name: 'Águas Claras' }
+    ];
+
+    const recycleIcon = L.divIcon({
+        className: 'custom-icon',
+        html: '♻️',
+        iconSize: [40, 40],
+        iconAnchor: [20, 20],
+        popupAnchor: [0, -20]
+    });
+
+    const dbPoints = {{ points | tojson }};
+    
+    dbPoints.forEach((point, index) => {
+        if (collectionPoints[index]) {
+            const marker = L.marker(
+                [collectionPoints[index].lat, collectionPoints[index].lng],
+                { icon: recycleIcon }
+            ).addTo(map);
+
+            marker.bindPopup(`
+                <div class="popup-title">${collectionPoints[index].name}</div>
+                <p style="font-size: 12px; color: #666; margin-bottom: 10px;">
+                    Ponto de coleta seletiva
+                </p>
+                <button class="popup-btn" onclick="collectPoint(${point[0]})">
+                    Iniciar Coleta
+                </button>
+            `);
+
+            marker.pointId = point[0];
+        }
+    });
+
+    const userIcon = L.divIcon({
+        className: 'custom-icon',
+        html: '📍',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40]
+    });
+
+    L.marker([-15.7939, -47.8828], { icon: userIcon })
+        .addTo(map)
+        .bindPopup('<strong>Você está aqui!</strong>');
+
+    function collectPoint(pointId) {
+        fetch(`/api/collect/${pointId}`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                currentPendingId = pointId;
+                document.getElementById('modalTitle').textContent = '📸 Coleta Iniciada!';
+                document.getElementById('modalMessage').textContent = data.message;
+                document.getElementById('photoUploadSection').classList.add('active');
+                showModal();
+                
+                // Remover marcador
+                map.eachLayer(layer => {
+                    if (layer instanceof L.Marker && layer.pointId === pointId) {
+                        map.removeLayer(layer);
+                    }
+                });
+            } else {
+                alert(data.error || 'Erro ao iniciar coleta');
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao processar coleta');
+        });
+    }
+
+    function handlePhotoSelect(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                selectedPhoto = e.target.result;
+                document.getElementById('previewImage').src = selectedPhoto;
+                document.getElementById('previewContainer').classList.add('active');
+                document.getElementById('confirmBtn').disabled = false;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function confirmCollection() {
+        if (!selectedPhoto) {
+            alert('Por favor, selecione uma foto primeiro!');
+            return;
+        }
+
+        document.getElementById('confirmBtn').disabled = true;
+        document.getElementById('confirmBtn').textContent = 'Enviando...';
+
+        fetch('/api/confirm_collection', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                photo: selectedPhoto
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('userPoints').textContent = data.points;
+                document.getElementById('userLevel').textContent = data.level;
+                
+                document.getElementById('modalTitle').textContent = '🎉 Parabéns!';
+                document.getElementById('modalMessage').textContent = data.message + ' +10 pontos!';
+                
+                // Limpar área de upload
+                document.getElementById('photoUploadSection').classList.remove('active');
+                document.getElementById('previewContainer').classList.remove('active');
+                document.getElementById('photoInput').value = '';
+                selectedPhoto = null;
+                
+                showModal();
+            } else {
+                alert(data.error || 'Erro ao confirmar coleta');
+                document.getElementById('confirmBtn').disabled = false;
+                document.getElementById('confirmBtn').textContent = 'Confirmar Coleta +10 pontos';
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao processar confirmação');
+            document.getElementById('confirmBtn').disabled = false;
+            document.getElementById('confirmBtn').textContent = 'Confirmar Coleta +10 pontos';
+        });
+    }
+
+    function showModal() {
+        document.getElementById('collectModal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('collectModal').classList.remove('active');
+    }
+</script>
+{% endblock %}

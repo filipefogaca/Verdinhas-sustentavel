@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Verdinha${% endblock %}
+
+{% block extra_css %}
+<style>
+    .logo-container {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .logo-image {
+        width: 120px;
+        height: auto;
+        filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>Verdinha$</h1>
+    <p>Entre na sua conta</p>
+</div>
+<div class="content">
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Verdinha$ Logo" class="logo-image">
+    </div>
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+    
+    <form method="POST">
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="seu@email.com" required>
+        </div>
+        <div class="input-group">
+            <label>Senha</label>
+            <input type="password" name="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+        <div class="link-text">
+            Não tem conta? <a href="{{ url_for('register') }}">Cadastre-se</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
