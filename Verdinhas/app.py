@@ -13,7 +13,7 @@ app.secret_key = 'verdinha$_secret_key_2024'
 def init_db():
     import random
 
-    conn = sqlite3.connect('verdinha.db')
+    conn = sqlite3.connect('../verdinha.db')
     c = conn.cursor()
 
     # Tabela de usuários (mantém os dados)
@@ -148,7 +148,7 @@ def login():
         email = request.form['email']
         password = hashlib.sha256(request.form['password'].encode()).hexdigest()
 
-        conn = sqlite3.connect('verdinha.db')
+        conn = sqlite3.connect('../verdinha.db')
         c = conn.cursor()
         c.execute('SELECT * FROM users WHERE email = ? AND password = ?', (email, password))
         user = c.fetchone()
@@ -172,7 +172,7 @@ def register():
         email = request.form['email']
         password = hashlib.sha256(request.form['password'].encode()).hexdigest()
 
-        conn = sqlite3.connect('verdinha.db')
+        conn = sqlite3.connect('../verdinha.db')
         c = conn.cursor()
 
         try:
@@ -197,7 +197,7 @@ def map_view():
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
-    conn = sqlite3.connect('verdinha.db')
+    conn = sqlite3.connect('../verdinha.db')
     c = conn.cursor()
 
     # Buscar dados do usuário
@@ -241,7 +241,7 @@ def ranking():
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
-    conn = sqlite3.connect('verdinha.db')
+    conn = sqlite3.connect('../verdinha.db')
     c = conn.cursor()
 
     c.execute('SELECT name, points FROM users ORDER BY points DESC LIMIT 10')
@@ -271,7 +271,7 @@ def rewards():
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
-    conn = sqlite3.connect('verdinha.db')
+    conn = sqlite3.connect('../verdinha.db')
     c = conn.cursor()
     c.execute('SELECT points FROM users WHERE id = ?', (session['user_id'],))
     user_result = c.fetchone()
@@ -298,7 +298,7 @@ def collect_point(point_id):
     if 'user_id' not in session:
         return jsonify({'error': 'Não autenticado'}), 401
 
-    conn = sqlite3.connect('verdinha.db')
+    conn = sqlite3.connect('../verdinha.db')
     c = conn.cursor()
 
     # Verificar se o ponto existe e não foi coletado
@@ -342,7 +342,7 @@ def confirm_collection():
     if not photo_data:
         return jsonify({'error': 'Foto não fornecida'}), 400
 
-    conn = sqlite3.connect('verdinha.db')
+    conn = sqlite3.connect('../verdinha.db')
     c = conn.cursor()
 
     # Buscar coleta pendente
