@@ -17,7 +17,7 @@ A organização do código separa a aplicação principal da apresentação de i
 
 ## 📂 Estrutura do Repositório
 
-
+```text
 Verdinhas-sustentavel/
 ├── Verdinhas/               # Código principal da aplicação Flask
 ├── apresentacaoVerdinhas/   # Storytelling interativo do projeto
@@ -26,8 +26,6 @@ Verdinhas-sustentavel/
 ├── README.md                # Documentação principal
 ├── requirements.txt         # Dependências do projeto (Flask, Pandas, etc.)
 └── desktop.ini              # Arquivo de sistema (pode ser removido)
-⚙️ Como Executar
-
 Este projeto utiliza um ambiente virtual (venv) para garantir a portabilidade e evitar conflitos de bibliotecas.
 
 1. Clonar e Configurar o Ambiente
