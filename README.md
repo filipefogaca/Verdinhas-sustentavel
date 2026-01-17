@@ -11,6 +11,7 @@ Banco de Dados: SQLite para persistência de dados.
 Análise de Dados: Pandas e Scikit-learn para processamento de informações e inteligência.
 
 Frontend: HTML5, CSS3 e JavaScript (incluindo Chart.js para visualização de dados).
+designer Prcisa de melhorias(somente um protótipo)
 
 📦 Estrutura do Projeto
 A organização do código separa a aplicação principal da apresentação de impacto:
