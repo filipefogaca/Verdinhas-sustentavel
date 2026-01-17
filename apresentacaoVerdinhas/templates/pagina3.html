@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block title %}Impactos do Lixo{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center;">Os Múltiplos Impactos do Lixo</h1>
+    <p style="text-align: center; max-width: 700px; margin: 0 auto 30px auto;">
+        O descarte inadequado de resíduos gera consequências severas para o meio ambiente, a saúde da população e a economia do país.
+    </p>
+
+    <!-- ==================== NOVO CONTAINER PARA OS DOIS KPIs ==================== -->
+    <div class="kpi-grid-container">
+        <!-- KPI 1: Internações -->
+        <div class="kpi-visual-card">
+            <div class="kpi-visual-icon">📌</div>
+            <div class="kpi-visual-content">
+                <div class="kpi-visual-number">344.000</div>
+                <div class="kpi-visual-label">internações em 2024</div>
+            </div>
+            <div class="kpi-visual-warning">
+                ⚠️ Doenças ligadas ao saneamento inadequado.
+            </div>
+        </div>
+
+        <!-- KPI 2: Vida Marinha -->
+        <div class="kpi-visual-card">
+            <div class="kpi-visual-icon">🌊</div>
+            <div class="kpi-visual-content">
+                <div class="kpi-visual-number">>100.000</div>
+                <div class="kpi-visual-label">animais marinhos mortos</div>
+            </div>
+            <div class="kpi-visual-warning">
+                ⚠️ Mortes anuais causadas pela ingestão de plástico.
+            </div>
+        </div>
+    </div>
+    <!-- ======================================================================= -->
+
+    <!-- Grid com os gráficos (agora com 3 itens) -->
+    <div class="grid-container-impactos">
+        <div class="chart-container">
+            <h2>Emissões de Metano</h2>
+            <canvas id="graficoImpactoAmbiental"></canvas>
+            <p class="fonte">Fonte: Global Methane Pledge</p>
+        </div>
+        <div class="chart-container">
+            <h2>Impacto na Saúde (%)</h2>
+            <canvas id="graficoImpactoSocial"></canvas>
+            <p class="fonte">Fonte: MDPI</p>
+        </div>
+        <div class="chart-container">
+            <h2>Custos e Perdas (Bi R$)</h2>
+            <canvas id="graficoImpactoEconomico"></canvas>
+            <p class="fonte">Fonte: ABRELPE, CNN Brasil</p>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- Define as URLs de navegação -->
+{% set prev_url = url_for('pagina2') %}
+{% set next_url = url_for('pagina_alerta') %}

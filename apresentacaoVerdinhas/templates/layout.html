@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Storytelling do Lixo{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+
+            <!-- Navegação entre as páginas -->
+            <div class="navegacao">
+                {% if prev_url %}
+                    <a href="{{ prev_url }}" class="btn-nav">‹ Voltar</a>
+                {% else %}
+                    <!-- Espaço vazio para alinhar o botão 'Avançar' à direita na primeira página -->
+                    <span></span>
+                {% endif %}
+
+                {% if next_url %}
+                    <a href="{{ next_url }}" class="btn-nav">Avançar ›</a>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+    <script src="{{ url_for('static', filename='js/graficos.js' ) }}"></script>
+</body>
+</html>

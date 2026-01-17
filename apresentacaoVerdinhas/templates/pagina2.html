@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Contexto: Brasil e Mundo{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center;">O Cenário do Lixo: Brasil e Mundo</h1>
+    <div class="kpi-card">
+        <div class="kpi-title">Média de Produção Anual de Lixo no Brasil</div>
+        <div class="kpi-value">{{ kpi_brasil }}</div>
+        <div class="kpi-unit">Toneladas</div>
+    </div>
+    <div class="grid-container">
+        <div class="chart-container">
+            <h2>Crescente do Lixo no Brasil em Milhões de Toneladas</h2>
+            <canvas id="graficoLixoBrasil"></canvas>
+        </div>
+        <div class="chart-container">
+            <h2>Crescente do Lixo Global em Bilhões de Toneladas</h2>
+            <canvas id="graficoLixoGlobal"></canvas>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- Define as URLs de navegação -->
+{% set prev_url = url_for('index') %}
+{% set next_url = url_for('pagina3') %}

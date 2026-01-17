@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}Nossa Solução: Verdinha${% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center;">A Solução é Mudar o Hábito</h1>
+
+    <div class="solucao-container">
+        <!-- Coluna da Esquerda: Imagem do App -->
+        <div class="solucao-imagem">
+            <img src="{{ url_for('static', filename='img/app_login.png') }}" alt="Tela de login do app Verdinhas">
+        </div>
+
+        <!-- Coluna da Direita: Descrição da Solução -->
+        <div class="solucao-descricao">
+            <h2>O app Verdinha$</h2>
+            <p class="solucao-principal">
+                O <strong>Verdinha$</strong> diminui o lixo nas ruas ao transformar a reciclagem em um jogo recompensador e conveniente.
+            </p>
+
+            <div class="solucao-ponto">
+                <h3>Motivação Imediata</h3>
+                <p>O sistema de pontos e ranking incentiva os usuários a levar o lixo reciclável para os pontos de coleta, em vez de descartá-lo incorretamente.</p>
+            </div>
+
+            <div class="solucao-ponto">
+                <h3>Solução de Logística</h3>
+                <p>O mapa mostra a localização exata dos pontos de coleta, eliminando barreiras e tornando a reciclagem a opção mais fácil.</p>
+            </div>
+
+            <div class="solucao-ponto">
+                <h3>Resultado</h3>
+                <p>O aplicativo promove uma mudança de hábito que resulta em menos lixo nas ruas e mais materiais chegando à reciclagem de forma eficiente.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- Define a URL da página anterior -->
+{% set prev_url = url_for('pagina_alerta') %}
+<!-- Não há next_url, pois esta é a última página -->

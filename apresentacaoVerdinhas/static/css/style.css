@@ -1,0 +1,283 @@
+/* =================================
+   ESTILOS GERAIS E TIPOGRAFIA
+   ================================= */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f5f0; /* Tom de verde claro */
+    color: #333;
+    margin: 0;
+    padding: 40px;
+}
+
+main {
+    width: 100%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2 {
+    color: #0056b3;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.fonte {
+    font-size: 0.8em;
+    color: #888;
+    text-align: right;
+    margin-top: 10px;
+}
+
+/* =================================
+   PÁGINA 1: VÍDEO
+   ================================= */
+.video-container {
+    max-width: 896px;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    background-color: #000;
+}
+
+.video-container video {
+    display: block;
+    width: 100%;
+}
+
+/* =================================
+   PÁGINA 2: KPI PRINCIPAL
+   ================================= */
+.kpi-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    padding: 25px;
+    text-align: center;
+    max-width: 400px;
+    margin: 20px auto 40px auto;
+    border-left: 5px solid #007bff;
+}
+
+.kpi-title {
+    font-size: 1em;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.kpi-value {
+    font-size: 3em;
+    font-weight: bold;
+    color: #0056b3;
+}
+
+.kpi-unit {
+    font-size: 1.1em;
+    color: #343a40;
+}
+
+/* =================================
+   PÁGINA 3: KPIs DE IMPACTO (TOPO)
+   ================================= */
+.kpi-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.kpi-visual-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.kpi-visual-icon {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.kpi-visual-content {
+    flex-grow: 1;
+}
+
+.kpi-visual-number {
+    font-size: 3em;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.kpi-visual-card:nth-child(1) .kpi-visual-number {
+    color: #d9534f;
+}
+.kpi-visual-card:nth-child(2) .kpi-visual-number {
+    color: #007bff;
+}
+
+.kpi-visual-label {
+    font-size: 1em;
+    color: #555;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.kpi-visual-warning {
+    font-size: 0.9em;
+    color: #333;
+    background-color: #f8f9fa;
+    border-top: 2px solid #e9ecef;
+    padding: 10px;
+    width: 100%;
+    margin-top: auto;
+    border-radius: 0 0 8px 8px;
+}
+
+/* =================================
+   GRIDS E GRÁFICOS
+   ================================= */
+.grid-container, .grid-container-impactos, .grid-container-alerta {
+    display: grid;
+    gap: 30px;
+}
+
+.grid-container, .grid-container-alerta {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+/* CORREÇÃO: Removido 'align-items: stretch' */
+.grid-container-impactos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* CÓDIGO CORRIGIDO E SIMPLIFICADO */
+.chart-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* A altura será controlada pelo próprio gráfico agora */
+}
+
+}
+
+/* =================================
+   PÁGINA 5: SOLUÇÃO
+   ================================= */
+.solucao-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 50px;
+    align-items: center;
+    margin-top: 40px;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.solucao-imagem img {
+    width: 100%;
+    max-width: 300px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.solucao-descricao h2 {
+    text-align: left;
+    color: #28a745;
+}
+
+.solucao-principal {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.solucao-ponto {
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border-left: 3px solid #28a745;
+}
+
+.solucao-ponto h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #0056b3;
+}
+
+.solucao-ponto p {
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+/* =================================
+   NAVEGAÇÃO
+   ================================= */
+.navegacao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn-nav {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.btn-nav:hover {
+    background-color: #0056b3;
+}
+
+/* =================================
+   RESPONSIVIDADE
+   ================================= */
+@media (max-width: 992px) {
+    .solucao-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 25px;
+    }
+    .solucao-imagem {
+        order: -1;
+    }
+    .solucao-descricao h2 {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+    .kpi-grid-container {
+        grid-template-columns: 1fr;
+    }
+    .grid-container, .grid-container-impactos, .grid-container-alerta {
+        grid-template-columns: 1fr;
+    }
+}

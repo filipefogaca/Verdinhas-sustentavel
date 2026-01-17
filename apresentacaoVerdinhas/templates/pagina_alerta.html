@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Alerta e Comparação Global{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center;">A Urgência do Problema</h1>
+    <p style="text-align: center; max-width: 700px; margin: 0 auto 40px auto;">
+        Dois fatos que destacam a gravidade da situação: o tempo que o lixo permanece na natureza e a nossa baixa performance em reciclagem comparada ao mundo.
+    </p>
+
+    <div class="grid-container-alerta">
+        <div class="chart-container">
+            <h2>Tempo de Decomposição (em Anos)</h2>
+            <canvas id="graficoDecomposicao"></canvas>
+            <p class="fonte">Fonte: Agências Ambientais</p>
+        </div>
+        <div class="chart-container">
+            <h2>Países Com Maior Taxa De Reciclagem vs. Brasil</h2>
+            <canvas id="graficoReciclagem"></canvas>
+            <p class="fonte">Fonte: OECD, World Bank</p>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- Define as URLs de navegação -->
+{% set prev_url = url_for('pagina3') %}
+{% set next_url = url_for('pagina4') %}
