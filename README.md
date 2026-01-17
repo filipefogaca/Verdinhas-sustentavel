@@ -27,6 +27,7 @@ Verdinhas-sustentavel/
 ├── requirements.txt         # Dependências do projeto (Flask, Pandas, etc.)
 └── desktop.ini              # Arquivo de sistema (pode ser removido)
 Este projeto utiliza um ambiente virtual (venv) para garantir a portabilidade e evitar conflitos de bibliotecas.
+```
 
 1. Clonar e Configurar o Ambiente
 Bash
