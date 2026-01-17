@@ -15,17 +15,19 @@ Frontend: HTML5, CSS3 e JavaScript (incluindo Chart.js para visualização de da
 📦 Estrutura do Projeto
 A organização do código separa a aplicação principal da apresentação de impacto:
 
-Plaintext
+## 📂 Estrutura do Repositório
 
-Verdinhas/
-├── .venv/                 # Ambiente virtual isolado
-├── apresentacao/          # Pasta com o storytelling (app_pitch.py)
-├── static/                # Arquivos CSS, JS e imagens do app principal
-├── templates/             # Páginas HTML do app principal
-├── app.py                 # Ponto de entrada da aplicação principal
-├── requirements.txt       # Dependências limpas do projeto
-└── README.md              # Documentação
+
+Verdinhas-sustentavel/
+├── Verdinhas/               # Código principal da aplicação Flask
+├── apresentacaoVerdinhas/   # Storytelling interativo do projeto
+├── docs/                    # Documentação e Plano de Negócios
+├── .gitignore               # Arquivos ignorados pelo Git
+├── README.md                # Documentação principal
+├── requirements.txt         # Dependências do projeto (Flask, Pandas, etc.)
+└── desktop.ini              # Arquivo de sistema (pode ser removido)
 ⚙️ Como Executar
+
 Este projeto utiliza um ambiente virtual (venv) para garantir a portabilidade e evitar conflitos de bibliotecas.
 
 1. Clonar e Configurar o Ambiente
